@@ -210,7 +210,6 @@ int main()
 
     booking.cancelByID(1);
     booking.cancelFirst();
-
     booking.display();
 
     return 0;
