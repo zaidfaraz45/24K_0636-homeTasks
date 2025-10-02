@@ -1,23 +1,18 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-bool isSafe(char **arr, int n, int row, int col)
+bool isSafe(vector<string> &board , int n, int row, int col)
 {
     for (int i = row; i >= 0; i--)
     {
-        if (arr[i][col] == 'Q')
-        {
-            return false;
-        }
+        if (board[i][col] == 'Q') {return false;}
     }
 
     int i = row, j = col;
     while (i >= 0 && j >= 0)
     {
-        if (arr[i][j] == 'Q')
-        {
-            return false;
-        }
+        if (board[i][j] == 'Q') {return false;}
 
         i--;
         j--;
@@ -26,10 +21,7 @@ bool isSafe(char **arr, int n, int row, int col)
     i = row, j = col;
     while (i >= 0 && j < n)
     {
-        if (arr[i][j] == 'Q')
-        {
-            return false;
-        }
+        if (board[i][j] == 'Q') {return false;}
 
         i--;
         j++;
@@ -38,54 +30,49 @@ bool isSafe(char **arr, int n, int row, int col)
     return true;
 }
 
-bool NQueens(char **arr, int n, int row = 0)
+void NQueens(vector<string> &board, int n, int row, vector<vector<string>> &solutions)
 {
-    if (row >= n) {return true;}
+    if (row == n) 
+    {
+        solutions.push_back(board);
+        return;
+    }
 
     for (int col = 0; col < n; col++)
     {
-        if (isSafe(arr, n, row, col))
+        if (isSafe(board, n, row, col))
         {
-            arr[row][col] = 'Q';  
+            board[row][col] = 'Q';  
 
-            if (NQueens(arr, n, row + 1)) {return true;}
+            NQueens(board, n, row + 1, solutions);
 
-            arr[row][col] = '.'; 
+            board[row][col] = '.'; 
         }
     }
-    return false;
+}
+
+vector<vector<string>> solveNQueens(int n) 
+{
+    vector<vector<string>> solutions;
+    vector<string> board(n, string(n, '.'));
+    NQueens(board, n, 0, solutions);  
+    return solutions;  
 }
 
 int main()
 {
-    char **sol = new char*[4];
-    for (int i = 0; i < 4; i++)
-    {
-        sol[i] = new char[4];
-        for (int j = 0; j < 4; j++)
-        {
-            sol[i][j] = '.';
-        }
-    }
+    vector<vector<string>> solutions = solveNQueens(4);
 
-    if (NQueens(sol, 4))
+        
+    for (int i = 0; i < solutions.size(); i++) 
     {
-        cout << "Solution aray:\n";
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                cout << sol[i][j] << " ";
-            }
-            cout << endl;
-        }
-    }
-
-    for (int i = 0; i < 4; i++)
-    {
-        delete[] sol[i];
-    }
-    delete[] sol;
-
+        cout << "Solution " << i + 1 << ":\n";
+        for (int j = 0; j < solutions[i].size(); j++)
+        { 
+            cout << solutions[i][j] << endl;
+        }  
+        cout << endl;
+    } 
+    
     return 0;
 }
