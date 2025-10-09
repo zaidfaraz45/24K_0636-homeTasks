@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+//Shell sort is better int this case than insertion sort as the array is moderately sorted and shell sort moves slower values closer to the start early on. Therefore, the number of comparisons and swaps needed in the later passes is much smaller than what Insertion Sort would do.
 void shellSort(int arr[], int size)
 {
     for (int gap = size / 2; gap > 0; gap /= 2)
