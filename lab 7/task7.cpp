@@ -71,19 +71,17 @@ int main()
     }
 
     cout << "Before sorting:\n";
-    cout << "----------STUDENT SCORES----------\n\n";
     for (int i = 0; i < n; i++)
     {
-        cout << "          " << scores[i].student << ": " << scores[i].score << endl;
+        cout << scores[i].student << ": " << scores[i].score << endl;
     }
 
     radixSort(scores, 50);
 
     cout << "\nAfter sorting:\n";
-    cout << "----------STUDENT SCORES----------\n\n";
     for (int i = 0; i < n; i++)
     {
-        cout << "          " << scores[i].student << ": " << scores[i].score << endl;
+        cout << scores[i].student << ": " << scores[i].score << endl;
     }
     
     return 0;
